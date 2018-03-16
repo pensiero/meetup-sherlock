@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  web:
+    image: node:8.9
+    environment:
+      - NODE_ENV=production
+    command: "npm start"

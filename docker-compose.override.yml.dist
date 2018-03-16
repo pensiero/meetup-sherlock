@@ -1,13 +1,13 @@
 version: '3'
 
 services:
-  web:
+  frontend:
     user: "node"
     working_dir: /home/node
     environment:
       - NODE_ENV=development
     volumes:
-      - ./:/home/node
+      - ./frontend/:/home/node
     expose:
       - 3000
     ports:

@@ -1,8 +1,33 @@
 version: '3'
 
 services:
+
+  mysql:
+    image: mysql:5.7.20
+    volumes:
+      - mysql-data:/var/lib/mysql
+    expose:
+      - 3306
+
+  backend-php:
+    build:
+      context: ./backend/
+      dockerfile: config/docker/php/prod/Dockerfile
+    depends_on:
+      - mysql
+
+  backend-nginx:
+    build:
+      context: ./backend/
+      dockerfile: config/docker/nginx/Dockerfile
+    depends_on:
+      - backend-php
+
   frontend:
     image: node:8.9
     environment:
       - NODE_ENV=production
     command: "npm start"
+
+volumes:
+  mysql-data:

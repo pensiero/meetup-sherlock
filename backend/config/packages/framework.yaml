@@ -1,0 +1,9 @@
+framework:
+    default_locale: en
+    secret: '%env(APP_SECRET)%'
+    session:
+        handler_id: ~
+    php_errors:
+        log: true
+    templating:
+        engines: ['twig']

@@ -1,6 +1,27 @@
 version: '3'
 
 services:
+
+  mysql:
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+
+  backend-php:
+    build:
+      context: ./backend/
+      dockerfile: config/docker/php/dev/Dockerfile
+    volumes:
+      - ./backend/:/usr/share/nginx:cached
+      - ./backend/config/docker/php/dev/php.conf:/usr/local/etc/php-fpm.d/zz-log.conf
+
+  backend-nginx:
+    image: nginx:1.13
+    volumes:
+      - ./backend/public:/usr/share/nginx/public:cached
+      - ./backend/config/docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 8080:80
+
   frontend:
     user: "node"
     working_dir: /home/node

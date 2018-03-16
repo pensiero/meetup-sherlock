@@ -13,23 +13,17 @@ services:
     volumes:
       - ./backend/:/usr/share/nginx:cached
       - ./backend/config/docker/php/dev/php.conf:/usr/local/etc/php-fpm.d/zz-log.conf
+    env_file: ./backend/.env
 
   backend-nginx:
     image: nginx:1.13
     volumes:
       - ./backend/public:/usr/share/nginx/public:cached
       - ./backend/config/docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-    ports:
-      - 8080:80
 
-  frontend:
-    user: "node"
-    working_dir: /home/node
+  frontend-node:
+    image: node:8.9
     environment:
       - NODE_ENV=development
     volumes:
       - ./frontend/:/home/node
-    expose:
-      - 3000
-    ports:
-      - 3000:3000

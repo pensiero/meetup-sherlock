@@ -22,12 +22,22 @@ services:
       dockerfile: config/docker/nginx/Dockerfile
     depends_on:
       - backend-php
+    ports:
+      - 8080:80
 
-  frontend:
-    image: node:8.9
+  frontend-node:
+    build:
+      context: ./frontend/
+      dockerfile: config/docker/node/Dockerfile
+    user: "node"
+    working_dir: /home/node
     environment:
       - NODE_ENV=production
     command: "npm start"
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
 
 volumes:
   mysql-data:

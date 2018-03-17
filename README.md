@@ -25,9 +25,6 @@ If you want, you can dig inside the main containers:
 
 ```
 docker-compose exec backend-php bash
-```
-
-```
 docker-compose exec frontend-node bash
 ```
 
@@ -41,3 +38,9 @@ Explore what you can do with `run.sh`:
 ```
 ./run.sh help
 ```
+
+## Test the API
+
+You can test the API through Postman.
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/03cb31159346ec8f9f64)

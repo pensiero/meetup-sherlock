@@ -20,9 +20,9 @@ class Favorite
     private $id;
 
     /**
-     * @ORM\Column(type="integer", unique=true)
+     * @ORM\Column(type="string", unique=true)
      *
-     * @var int
+     * @var string
      */
     private $meetupId;
 
@@ -61,26 +61,30 @@ class Favorite
 
     /**
      * @param int $id
+     * @return Favorite
      */
-    public function setId(int $id): void
+    public function setId(int $id): Favorite
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getMeetupId(): int
+    public function getMeetupId(): string
     {
         return $this->meetupId;
     }
 
     /**
-     * @param int $meetupId
+     * @param string $meetupId
+     * @return Favorite
      */
-    public function setMeetupId(int $meetupId): void
+    public function setMeetupId(string $meetupId): Favorite
     {
         $this->meetupId = $meetupId;
+        return $this;
     }
 
     /**
@@ -93,9 +97,12 @@ class Favorite
 
     /**
      * @param \DateTime $createdAt
+     * @return Favorite
      */
-    public function setCreatedAt(\DateTime $createdAt): void
+    public function setCreatedAt(\DateTime $createdAt): Favorite
     {
         $this->createdAt = $createdAt;
+        return $this;
     }
+
 }

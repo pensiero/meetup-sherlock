@@ -43,19 +43,12 @@ class FavoriteController extends FOSRestController
         /** @var Favorite[] $favorites */
         $favorites = $this->favoriteProvider->getAllFavorites();
         if ($favorites === null) {
-            return [
-                'code' => 200,
-                'body' => [],
-            ];
+            return [];
         }
 
-        return [
-            'code' => 200,
-            'body' =>
-                array_map(function($favorite) {
-                    return $favorite->restInfo();
-                }, $favorites),
-        ];
+        return array_map(function($favorite) {
+            return $favorite->restInfo();
+        }, $favorites);
     }
 
     /**
@@ -67,45 +60,40 @@ class FavoriteController extends FOSRestController
      */
     public function add(Request $request): array
     {
-        $meetupId = (int) $request->request->get('meetup_id');
+        $meetupId = $request->request->get('meetup_id');
 
         try {
             $favorite = $this->favoriteManager->add($meetupId);
         }
         catch (\Exception $e) {
             return [
-                'code'    => 500,
                 'message' => 'Error while adding the favorite',
             ];
         }
 
-        return [
-            'code' => 200,
-            'body' => $favorite->restInfo(),
-        ];
+        return $favorite->restInfo();
     }
 
     /**
-     * @Rest\Delete("/api/v1/favorites/{id}")
+     * @Rest\Delete("/api/v1/favorites")
      *
-     * @param int $id
+     * @param Request $request
      *
      * @return array
      */
-    public function remove($id): array
+    public function remove(Request $request): array
     {
+        $meetupId = $request->request->get('meetup_id');
+
         try {
-            $this->favoriteManager->remove($id);
+            $this->favoriteManager->remove($meetupId);
         }
         catch (\Exception $e) {
             return [
-                'code'    => 500,
                 'message' => 'Error while removing the favorite',
             ];
         }
 
-        return [
-            'code' => 204,
-        ];
+        return [];
     }
 }

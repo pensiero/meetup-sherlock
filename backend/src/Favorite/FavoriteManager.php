@@ -23,14 +23,14 @@ class FavoriteManager
     /**
      * Add favorite
      *
-     * @param int $meetupId
+     * @param string $meetupId
      *
      * @return Favorite
      */
     public function add($meetupId): Favorite
     {
         /** @var Favorite $favorite */
-        $favorite = $this->em->getRepository('App:Favorite')->findOneBy(['meetupId' => (int) $meetupId]);
+        $favorite = $this->em->getRepository('App:Favorite')->findOneBy(['meetupId' => $meetupId]);
 
         // favorite is already there
         if ($favorite !== null) {
@@ -50,12 +50,12 @@ class FavoriteManager
     /**
      * Remove favorite
      *
-     * @param int $favoriteId
+     * @param string $meetupId
      */
-    public function remove($favoriteId): void
+    public function remove($meetupId): void
     {
         /** @var Favorite $favorite */
-        $favorite = $this->em->getRepository('App:Favorite')->find((int) $favoriteId);
+        $favorite = $this->em->getRepository('App:Favorite')->findOneBy(['meetupId' => $meetupId]);
 
         // favorite is already not there
         if ($favorite === null) {

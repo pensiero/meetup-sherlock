@@ -3,4 +3,6 @@
 .DS_Store
 .config/
 .cache/
+.npm/
+.yarn/
 node_modules/

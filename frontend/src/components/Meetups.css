@@ -2,3 +2,18 @@
   speak: none;
   display: none;
 }
+.meetup-head {
+  align-items: flex-start;
+}
+
+@media (max-width: 768px) {
+  .meetup-head {
+    flex-direction: column;
+  }
+  .meetup-head .row-item {
+    padding-left: 0 !important;
+  }
+  .meetup-head .row-item:first-child {
+    margin-bottom: 5px !important;
+  }
+}

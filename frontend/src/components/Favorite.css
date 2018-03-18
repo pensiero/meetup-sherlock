@@ -1,0 +1,17 @@
+.favorite {
+  cursor: pointer;
+  width: 86px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+.favorite:hover {
+  background-color: #f6f7f8;
+}
+.favorite.active {
+  color: #d32d4a;
+}

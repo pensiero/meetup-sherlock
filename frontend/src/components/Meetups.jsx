@@ -2,7 +2,9 @@ import moment from "moment";
 import React from "react";
 
 import "./Meetups.css";
+import "meetup-web-components/assets/scss/main.scss";
 
+import Favorite from './Favorite';
 import InlineBlockList from "meetup-web-components/lib/layout/InlineBlockList";
 import AvatarMember from "meetup-web-components/lib/media/AvatarMember";
 
@@ -11,15 +13,31 @@ const Meetup = props => {
   const rsvpers =
     props.rsvpers.length >= 5 ? props.rsvpers.slice(0, 5) : props.rsvpers;
 
+  // show favorite button only if favorites were loaded at least one time
+  const favorite =
+    props.favoritesLoaded ? (
+      <div className="row-item chunk">
+        <Favorite
+          isActive={props.isFavorite}
+          meetupId={props.id}
+        />
+      </div>
+    ) : null;
+
   return (
     <li className="list-item">
       <div className="text--secondary margin--bottom">{date} </div>
-      <h3 className="text--bold">
-        <a href={props.url} target="_blank">
-          {props.name}
-        </a>
-      </h3>
-      <p className="text--caption margin--bottom">{props.group}</p>
+        <div className="meetup-head row row--wrap">
+          <div className="row-item chunk">
+            <h3 className="text--bold">
+              <a href={props.url} target="_blank">
+                {props.name}
+              </a>
+            </h3>
+            <p className="text--caption margin--bottom">{props.group}</p>
+          </div>
+          {favorite}
+        </div>
       <div className="margin--bottom">
         <InlineBlockList
           items={rsvpers.map(rsvp => {
@@ -59,6 +77,7 @@ const Meetups = props => {
       {props.meetups.map(meetup => {
         return (
           <Meetup
+            id={meetup.id}
             name={meetup.name}
             url={meetup.event_url}
             group={meetup.group.name}
@@ -66,6 +85,8 @@ const Meetups = props => {
             time={meetup.time}
             rsvpCount={meetup.yes_rsvp_count}
             rsvpers={meetup.rsvp_sample}
+            favoritesLoaded={props.favorites !== null}
+            isFavorite={typeof props.favorites !== 'undefined' && props.favorites !== null && props.favorites.indexOf(meetup.id) !== -1}
           />
         );
       })}

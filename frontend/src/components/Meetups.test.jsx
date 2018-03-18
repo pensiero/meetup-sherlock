@@ -1,10 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import TestUtils from "react-dom/test-utils";
 import Meetups from "./Meetups.jsx";
 
 const MEETUPS = [
   {
+    id: 1,
     url: "http://www.meetup.com/ny-tech/",
     group: {
       name: "Some Meetup"
@@ -15,6 +15,7 @@ const MEETUPS = [
     rsvp_sample: []
   },
   {
+    id: 2,
     url: "http://www.meetup.com/xxxxxx/",
     group: {
       name: "Some Other Meetup"
@@ -24,6 +25,10 @@ const MEETUPS = [
     rsvpCount: 2,
     rsvp_sample: []
   }
+];
+
+const FAVORITES = [
+  2
 ];
 
 const PEOPLE = [
@@ -57,6 +62,7 @@ it("renders no meetups", () => {
   );
   expect(meetupsEl).toHaveLength;
 });
+
 it("renders meetups", () => {
   const component = TestUtils.renderIntoDocument(
     <Meetups meetups={MEETUPS} errors={false} query="whatev" />
@@ -67,6 +73,7 @@ it("renders meetups", () => {
   );
   expect(meetupsEl).toHaveLength;
 });
+
 it("renders meetups with RSVPers", () => {
   MEETUPS[1].rsvp_sample = PEOPLE;
   const component = TestUtils.renderIntoDocument(
@@ -75,6 +82,50 @@ it("renders meetups with RSVPers", () => {
   const meetupsEl = TestUtils.scryRenderedDOMComponentsWithClass(
     component,
     "avatar--person"
+  );
+  expect(meetupsEl).toHaveLength;
+});
+
+it("renders meetups without favorite button", () => {
+  const component = TestUtils.renderIntoDocument(
+    <Meetups meetups={MEETUPS} favorites={null} errors={false} query="" />
+  );
+  const meetupsEl = TestUtils.scryRenderedDOMComponentsWithClass(
+    component,
+    "favorite"
+  );
+  expect(meetupsEl).not.toHaveLength;
+});
+
+it("renders meetups with favorite button", () => {
+  const component = TestUtils.renderIntoDocument(
+    <Meetups meetups={MEETUPS} favorites={[]} errors={false} query="" />
+  );
+  const meetupsEl = TestUtils.scryRenderedDOMComponentsWithClass(
+    component,
+    "favorite"
+  );
+  expect(meetupsEl).toHaveLength;
+});
+
+it("renders no favorite meetups", () => {
+  const component = TestUtils.renderIntoDocument(
+    <Meetups meetups={MEETUPS} favorites={[]} errors={false} query="" />
+  );
+  const meetupsEl = TestUtils.scryRenderedDOMComponentsWithClass(
+    component,
+    "favorite active"
+  );
+  expect(meetupsEl).not.toHaveLength;
+});
+
+it("renders meetups with at least a favorite one", () => {
+  const component = TestUtils.renderIntoDocument(
+    <Meetups meetups={MEETUPS} favorites={FAVORITES} errors={false} query="" />
+  );
+  const meetupsEl = TestUtils.scryRenderedDOMComponentsWithClass(
+    component,
+    "favorite active"
   );
   expect(meetupsEl).toHaveLength;
 });

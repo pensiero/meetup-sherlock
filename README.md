@@ -1,6 +1,7 @@
 # Meetup Sherlock
 
 In order to get Meetup Sherlock up&running you should have Docker installed onto your computer.
+Also, ensure that ports 3000 and 8080 are not busy.
 
 First time simply run:
 ```

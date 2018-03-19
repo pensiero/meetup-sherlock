@@ -10,6 +10,9 @@ ENV PROJECT_PATH=/home/node
 COPY package.json $PROJECT_PATH/package.json
 COPY yarn.lock $PROJECT_PATH/yarn.lock
 
+# Workdir
+WORKDIR $PROJECT_PATH
+
 # NPM install
 RUN yarn install
 

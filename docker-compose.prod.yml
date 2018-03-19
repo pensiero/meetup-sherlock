@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  backend-php:
+    image: pensiero/meetup-test-backend-php
+    env_file: .env                                                # TODO backend-php needs a file with all the env vars
+
+  db:
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret                                # TODO this is the Mysql root password and should be changed
+
+  backend-nginx:
+    image: pensiero/meetup-test-backend-nginx
+
+  frontend-node:
+    image: pensiero/meetup-test-frontend-node

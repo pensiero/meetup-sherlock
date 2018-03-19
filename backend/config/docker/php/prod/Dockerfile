@@ -26,7 +26,7 @@ RUN apt update -q && apt upgrade -yqq && apt install -yqq \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # PHP configs
-COPY config/docker/web/prod/php.conf /usr/local/etc/php-fpm.d/zz-log.conf
+COPY config/docker/php/prod/php.conf /usr/local/etc/php-fpm.d/zz-log.conf
 
 # Workdir
 WORKDIR $PROJECT_PATH
@@ -36,7 +36,10 @@ COPY composer.json $PROJECT_PATH/composer.json
 COPY composer.lock $PROJECT_PATH/composer.lock
 
 # Composer install
-RUN composer install --no-interaction --optimize-autoloader
+RUN composer install --no-interaction --optimize-autoloader --no-scripts
+
+RUN mkdir var/
+RUN chmod -R 777 var/
 
 # Copy site into place
 COPY . $PROJECT_PATH

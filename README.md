@@ -51,22 +51,22 @@ You can test the API through Postman.
 
 - I choosed a PHP + Nginx stack because I master them well and let me create quickly a basic API
 - Both frontend and backend are *dockerized*, in order to easily run on multiple computer/environments 
-- [run.sh](blob/master/run.sh) is a simple script that wrap [Docker](https://www.docker.com/) commands, in order to provide an "easy to use" "one-line command way" to provision the project also by people that don't master Docker
+- [run.sh](run.sh) is a simple script that wrap [Docker](https://www.docker.com/) commands, in order to provide an "easy to use" "one-line command way" to provision the project also by people that don't master Docker
 - Backend runs on port `8080`, frontend runs on port `3000`
 - There isn't a reverse proxy (but it could be easily integrated with [jwilder/nginx-proxy](https://github.com/jwilder/nginx-proxy))
 
 ### Backend
 
-- [Favorite](blob/master/backend/src/Entity/Favorite.php) has an auto incremented int `id`, a `meetupId` string and a `createdAt` datetime
+- [Favorite](backend/src/Entity/Favorite.php) has an auto incremented int `id`, a `meetupId` string and a `createdAt` datetime
 - Favorites are stored in a MySQL db through an ORM (Doctrine)
-- Write logic is separated by read logic thanks to [FavoriteManager](blob/master/backend/src/Favorite/FavoriteManager.php) and [FavoriteProvider](blob/master/backend/src/Favorite/FavoriteProvider.php)
-- A [dedicated controller](blob/master/backend/src/Controller/Api/V1/FavoriteController.php) manages the Favorite API
+- Write logic is separated by read logic thanks to [FavoriteManager](backend/src/Favorite/FavoriteManager.php) and [FavoriteProvider](backend/src/Favorite/FavoriteProvider.php)
+- A [dedicated controller](backend/src/Controller/Api/V1/FavoriteController.php) manages the Favorite API
 - There is a V1 namespace (useful for future upgrades)
 
 ### Frontend
 
 - In order to display both the list of the filtered Meetups and the list of the favorites Meetups, I used the `Tab` and `TabsTab` components from `meetup-web-components`
-- [Favorite](blob/master/frontend/src/components/Favorite.jsx) is a new React component that takes advantage of the `withToggleControl` helper
+- [Favorite](frontend/src/components/Favorite.jsx) is a new React component that takes advantage of the `withToggleControl` helper
 - `Favorite` uses the [Meetup Swarm Icons](https://github.com/meetup/swarm-icons) and [Meetup Swarm Colors](https://meetup.github.io/swarm-design-system/design/color/)
 - In order to use the Icons SVG Sprite (and display inline `sprite.inc`), I added a new loader to Webpack: [raw-loader](https://github.com/webpack-contrib/raw-loader)
 - `Favorite` listens to the *onClick* event in order to add/remove the favorite (mark or not the event as favourite)
